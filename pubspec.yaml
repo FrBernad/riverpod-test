@@ -1,0 +1,53 @@
+name: riverpodtest
+description: A simple riverpod test application
+publish_to: 'none'
+
+version: 1.0.0+1
+
+# Dart sdk version
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+  flutter_riverpod: ^2.3.7
+  riverpod_annotation: ^2.1.2
+  logger: ^2.0.1
+  beamer: ^1.5.6
+  dio: ^5.3.2
+  flutter_flavorizr: ^2.2.1
+  flutter_dotenv: ^5.1.0
+  equatable: ^2.0.5
+  fpdart: ^1.1.0
+  flutter_hooks: ^0.20.0
+  hooks_riverpod: ^2.3.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.0
+  riverpod_generator: ^2.2.6
+  build_runner: ^2.4.6
+  custom_lint: ^0.5.2
+  riverpod_lint: ^2.0.1
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - lib/config/env/.env.development
+    - assets/images/
+
+flavorizr:
+  flavors:
+    development:
+      app:
+        name: "Riverpod Test"
+
+      android:
+        applicationId: "ar.edu.itba.damm.development.riverpodtest"
+      ios:
+        bundleId: "ar.edu.itba.damm.development.riverpodtest"

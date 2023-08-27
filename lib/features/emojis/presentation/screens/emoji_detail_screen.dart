@@ -1,0 +1,57 @@
+import 'package:beamer/beamer.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpodtest/features/emojis/application/get_emoji_by_id_controller.dart';
+import 'package:riverpodtest/features/emojis/presentation/widgets/error_message.dart';
+
+class EmojiDetailScreen extends ConsumerWidget {
+  static const route = "/emojis/:id";
+
+  static String routeFromId(String id) => '/emojis/$id';
+  static const routeName = "emojisDetail";
+
+  final String id;
+
+  const EmojiDetailScreen({
+    Key? key,
+    required this.id,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final emojiAsync = ref.watch(getEmojiByIdControllerProvider(emojiId: id));
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Emoji Detail"),
+      ),
+      body: emojiAsync.when(
+        data: (emoji) => Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                emoji.character,
+                style: const TextStyle(fontSize: 50),
+              ),
+              const SizedBox(height: 20),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Flexible(
+                  child: Text(
+                    emoji.unicodeName,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(fontSize: 30),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        loading: () => const Center(
+          child: CircularProgressIndicator(),
+        ),
+        error: (err, stack) => const Center(child: ErrorMessage()),
+      ),
+    );
+  }
+}

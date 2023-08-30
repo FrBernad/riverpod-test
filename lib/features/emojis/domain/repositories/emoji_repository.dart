@@ -6,6 +6,6 @@ abstract interface class EmojiRepository {
   });
 
   Future<List<Emoji>> getEmojis({
-    required String? searchTerm,
+    required String searchTerm,
   });
 }

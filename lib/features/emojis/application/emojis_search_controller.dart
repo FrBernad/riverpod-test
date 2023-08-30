@@ -17,23 +17,25 @@ class EmojisSearchController extends _$EmojisSearchController {
       if (_debounceTimer != null) _debounceTimer!.cancel();
     });
 
-    return await _getEmojis();
+    return await _getEmojis(searchTerm: '');
   }
 
   Future<void> search({
-    String? searchTerm,
+    required String searchTerm,
   }) async {
     if (_debounceTimer != null) _debounceTimer!.cancel();
 
-    _debounceTimer = Timer(const Duration(milliseconds: 400), () async {
-      final emojis = await _getEmojis(searchTerm: searchTerm);
-
-      state = AsyncValue.data(emojis);
-    });
+    _debounceTimer = Timer(
+      const Duration(milliseconds: 400),
+      () async {
+        state =
+            await AsyncValue.guard(() => _getEmojis(searchTerm: searchTerm));
+      },
+    );
   }
 
   Future<List<Emoji>> _getEmojis({
-    String? searchTerm,
+    required String searchTerm,
   }) async {
     final emojis = await ref
         .read(emojiRepositoryProvider)

@@ -8,7 +8,7 @@ abstract interface class EmojiRemoteDataSource {
   Future<Option<EmojiEntity>> getEmojiById({required String emojiId});
 
   Future<List<EmojiEntity>> getEmojis({
-    required String? searchTerm,
+    required String searchTerm,
   });
 }
 
@@ -35,12 +35,13 @@ class EmojiRemoteDatasourceImpl extends EmojiRemoteDataSource {
   }
 
   @override
-  Future<List<EmojiEntity>> getEmojis({required String? searchTerm}) async {
+  Future<List<EmojiEntity>> getEmojis({required String searchTerm}) async {
     try {
       final emojisResults = await httpClient.get(
         "",
-        queryParameters: searchTerm != null ? {"search": searchTerm} : null,
+        queryParameters: searchTerm.isNotEmpty ? {"search": searchTerm} : null,
       );
+
       return List<EmojiEntity>.from(
           emojisResults.data?.map((e) => EmojiEntity.fromJson(e)) ?? []);
     } on DioException catch (e) {

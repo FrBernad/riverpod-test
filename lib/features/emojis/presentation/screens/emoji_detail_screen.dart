@@ -25,27 +25,29 @@ class EmojiDetailScreen extends ConsumerWidget {
         title: const Text("Emoji Detail"),
       ),
       body: emojiAsync.when(
-        data: (emoji) => Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                emoji.character,
-                style: const TextStyle(fontSize: 50),
-              ),
-              const SizedBox(height: 20),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Flexible(
+        data: (emoji) => Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              emoji.character,
+              style: const TextStyle(fontSize: 50),
+            ),
+            const SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Text(
                     emoji.unicodeName,
                     textAlign: TextAlign.center,
                     style: const TextStyle(fontSize: 30),
                   ),
                 ),
-              ),
-            ],
-          ),
+              ],
+            ),
+          ],
         ),
         loading: () => const Center(
           child: CircularProgressIndicator(),

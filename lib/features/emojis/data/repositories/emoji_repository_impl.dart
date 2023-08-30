@@ -25,7 +25,7 @@ class EmojiRepositoryImpl implements EmojiRepository {
   }
 
   @override
-  Future<List<Emoji>> getEmojis({required String? searchTerm}) async {
+  Future<List<Emoji>> getEmojis({required String searchTerm}) async {
     final List<EmojiEntity> emojiEntities =
         await emojisRemoteDatasource.getEmojis(searchTerm: searchTerm);
 
